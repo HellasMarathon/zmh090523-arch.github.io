@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="拾学集:为中科大同学精选的网络学习资源,课程资料、视频课程、编程开发、学术科研、校内平台与效率工具。" />
+<title>拾学集 · 中科大学习资源</title>
+<style>
+  :root {
+    --bg: #f7f4ec;
+    --card: #ffffff;
+    --ink: #22302b;
+    --muted: #71827b;
+    --primary: #175e4c;
+    --primary-deep: #0e4437;
+    --accent: #e8b04b;
+    --border: #e8e2d3;
+    --c-kecheng: #2e7d5b;
+    --c-shipin: #b4552d;
+    --c-biancheng: #35579b;
+    --c-xueshu: #6d4c9f;
+    --c-xiaonei: #0e7490;
+    --c-xiaolv: #a16207;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+
+  /* ===== Hero ===== */
+  .hero {
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(1100px 420px at 85% -10%, rgba(232, 176, 75, 0.28), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(46, 125, 91, 0.35), transparent 55%),
+      linear-gradient(135deg, #103c31 0%, #175e4c 55%, #1d6b57 100%);
+    color: #f3f0e6;
+    padding: 72px 0 88px;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 90% 80% at 50% 20%, #000 30%, transparent 75%);
+  }
+  .hero .wrap { position: relative; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 32px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; letter-spacing: 2px; color: #cfe3d9;
+    border: 1px solid rgba(255,255,255,0.25); border-radius: 999px;
+    padding: 6px 16px; margin-bottom: 22px; backdrop-filter: blur(4px);
+  }
+  .hero-badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  .hero h1 {
+    font-size: clamp(38px, 6vw, 60px); font-weight: 800; letter-spacing: 4px; line-height: 1.15;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p.sub {
+    margin-top: 16px; max-width: 560px; font-size: 16px; color: #c6d8cf;
+  }
+  .hero-stats { display: flex; gap: 36px; margin-left: auto; padding-bottom: 6px; }
+  .stat { text-align: center; }
+  .stat b { display: block; font-size: 30px; font-weight: 800; color: #fff; }
+  .stat span { font-size: 13px; color: #b9cec3; letter-spacing: 1px; }
+
+  /* ===== Sticky toolbar ===== */
+  .toolbar {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(247, 244, 236, 0.88); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 6px 24px rgba(34, 48, 43, 0.05);
+    padding: 14px 0;
+  }
+  .toolbar .wrap { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .search {
+    position: relative; flex: 1 1 240px; max-width: 340px;
+  }
+  .search svg {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    width: 16px; height: 16px; stroke: var(--muted);
+  }
+  .search input {
+    width: 100%; padding: 10px 16px 10px 38px; font-size: 14px;
+    border: 1px solid var(--border); border-radius: 999px;
+    background: var(--card); color: var(--ink); outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .search input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(23, 94, 76, 0.12); }
+  .chip {
+    padding: 8px 18px; border-radius: 999px; font-size: 14px;
+    border: 1px solid var(--border); background: var(--card);
+    color: var(--ink); cursor: pointer; transition: all .18s;
+  }
+  .chip:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-1px); }
+  .chip.active {
+    background: var(--primary); border-color: var(--primary); color: #fff;
+    box-shadow: 0 4px 14px rgba(23, 94, 76, 0.3);
+  }
+  .free-toggle {
+    margin-left: auto; font-size: 14px; color: var(--muted);
+    display: flex; align-items: center; gap: 7px; cursor: pointer; user-select: none;
+  }
+  .free-toggle input { accent-color: var(--primary); width: 15px; height: 15px; cursor: pointer; }
+
+  /* ===== Cards ===== */
+  main { padding: 36px 0 56px; }
+  .grid {
+    display: grid; gap: 18px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+  .card {
+    position: relative; display: block; overflow: hidden;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 18px; padding: 22px 22px 18px;
+    text-decoration: none; color: inherit;
+    transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    animation: rise .5s ease both;
+  }
+  .card::after {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px;
+    background: linear-gradient(90deg, var(--cat-color, var(--primary)), transparent 80%);
+    opacity: 0; transition: opacity .22s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(23, 94, 76, 0.35);
+    box-shadow: 0 16px 40px rgba(34, 48, 43, 0.12);
+  }
+  .card:hover::after { opacity: 1; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .card-head { display: flex; align-items: center; gap: 13px; }
+  .card-icon {
+    width: 46px; height: 46px; flex: none; border-radius: 13px;
+    display: flex; align-items: center; justify-content: center; font-size: 22px;
+    background: color-mix(in srgb, var(--cat-color, var(--primary)) 12%, #fff);
+    border: 1px solid color-mix(in srgb, var(--cat-color, var(--primary)) 22%, #fff);
+  }
+  .card-name { font-size: 16.5px; font-weight: 700; letter-spacing: .3px; }
+  .card-jump {
+    margin-left: auto; flex: none; width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 14px; border: 1px solid var(--border);
+    transition: all .2s;
+  }
+  .card:hover .card-jump {
+    background: var(--primary); border-color: var(--primary); color: #fff;
+    transform: rotate(45deg);
+  }
+  .card-desc { margin-top: 12px; font-size: 13.5px; color: var(--muted); min-height: 44px; }
+  .card-foot { margin-top: 14px; display: flex; gap: 8px; }
+  .badge { font-size: 12px; padding: 3px 11px; border-radius: 999px; letter-spacing: .3px; }
+  .badge.cat {
+    color: var(--cat-color, var(--primary));
+    background: color-mix(in srgb, var(--cat-color, var(--primary)) 10%, #fff);
+  }
+  .badge.free { background: #e2f0e8; color: #17603f; }
+  .badge.paid { background: #f8ecd8; color: #96660f; }
+  .empty { text-align: center; color: var(--muted); padding: 72px 0; font-size: 15px; }
+
+  footer {
+    border-top: 1px solid var(--border); padding: 30px 0 46px;
+    text-align: center; color: var(--muted); font-size: 13px;
+  }
+  footer b { color: var(--primary); letter-spacing: 1px; }
+
+  @media (max-width: 720px) {
+    .hero { padding: 52px 0 64px; }
+    .hero-stats { margin-left: 0; gap: 28px; }
+    .search { max-width: none; flex-basis: 100%; }
+    .free-toggle { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="hero-badge">USTC LEARNING HUB</span>
+      <h1>拾<em>学</em>集</h1>
+      <p class="sub">为中科大同学精选的网络学习资源——课程资料、视频课程、编程开发、学术科研、校内平台与效率工具,一站式直达。</p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><b id="total"></b><span>精选资源</span></div>
+      <div class="stat"><b>6</b><span>个分类</span></div>
+      <div class="stat"><b id="freeCount"></b><span>免费</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="toolbar">
+  <div class="wrap" id="chips">
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+      <input id="q" type="search" placeholder="搜索资源名称或简介…" aria-label="搜索资源" />
+    </div>
+    <label class="free-toggle"><input type="checkbox" id="freeOnly" /> 只看免费</label>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="grid" id="grid"></div>
+  <p class="empty" id="empty" hidden>没有找到匹配的资源,换个关键词试试。</p>
+</main>
+
+<footer>
+  <b>拾学集</b> · 资源由管理员筛选维护 · 点击卡片即可跳转到对应网站
+</footer>
+
+<script>
+const RESOURCES = [
+  { name: "USTC 评课社区", url: "https://icourse.club", description: "中科大课程评价与选课参考,含历年学习经验分享。", category: "校内平台", icon: "📋", free: true },
+  { name: "瀚海星云 BBS", url: "https://bbs.ustc.edu.cn", description: "中科大官方论坛,课程讨论、失物招领与校园信息集散地。", category: "校内平台", icon: "💬", free: true },
+  { name: "USTC 开源镜像站", url: "https://mirrors.ustc.edu.cn", description: "国内速度领先的开源镜像,含 PyPI、npm、CTAN、Linux 发行版。", category: "校内平台", icon: "🪞", free: true },
+  { name: "LUG@USTC", url: "https://lug.ustc.edu.cn", description: "中科大 Linux 用户协会,技术讲座、开源项目与社团活动。", category: "校内平台", icon: "🐧", free: true },
+  { name: "Hackergame", url: "https://hack.lug.ustc.edu.cn", description: "中科大信息安全竞赛,题目对新手友好,适合入门 CTF。", category: "校内平台", icon: "🚩", free: true },
+  { name: "USTC 图书馆", url: "https://lib.ustc.edu.cn", description: "馆藏检索、电子数据库导航与文献传递服务。", category: "校内平台", icon: "📚", free: true },
+  { name: "USTC-Course", url: "https://github.com/ustc-resource/USTC-Course", description: "中科大课程资源 GitHub 汇总,含课件、作业、试卷与复习资料。", category: "课程资料", icon: "📂", free: true },
+  { name: "CS 自学指南", url: "https://csdiy.wiki", description: "北大同学维护的计算机自学路线,覆盖 CS 核心课程与参考书籍。", category: "课程资料", icon: "🗺️", free: true },
+  { name: "cs-self-learning", url: "https://github.com/PKUFlyingPig/cs-self-learning", description: "计算机系统自学资源合集,以国外名校公开课为主线。", category: "课程资料", icon: "💻", free: true },
+  { name: "菜鸟教程", url: "https://www.runoob.com", description: "中文编程入门文档,适合语法速查与快速上手。", category: "课程资料", icon: "🐦", free: true },
+  { name: "廖雪峰的官方网站", url: "https://liaoxuefeng.com", description: "Python、JavaScript、Git 等高质量中文教程。", category: "课程资料", icon: "🐍", free: true },
+  { name: "中国大学 MOOC", url: "https://www.icourse163.org", description: "含中科大等多所高校的免费慕课,部分课程可认证。", category: "视频课程", icon: "🎓", free: true },
+  { name: "哔哩哔哩", url: "https://www.bilibili.com", description: "大量高校公开课录像与 UP 主课程讲解,搜课名常有惊喜。", category: "视频课程", icon: "📺", free: true },
+  { name: "学堂在线", url: "https://www.xuetangx.com", description: "清华大学发起的慕课平台,理工科课程丰富。", category: "视频课程", icon: "🏫", free: true },
+  { name: "MIT OpenCourseWare", url: "https://ocw.mit.edu", description: "MIT 免费公开课程,讲义、作业与考试资料齐全。", category: "视频课程", icon: "📐", free: true },
+  { name: "CS50", url: "https://cs50.harvard.edu/x/", description: "哈佛大学计算机科学导论公开课,配套实验与社区。", category: "视频课程", icon: "💡", free: true },
+  { name: "Khan Academy", url: "https://www.khanacademy.org", description: "数学、物理等基础学科免费课程,适合补基础。", category: "视频课程", icon: "➗", free: true },
+  { name: "网易公开课", url: "https://open.163.com", description: "国内外名校公开课的中文翻译版本。", category: "视频课程", icon: "🎬", free: true },
+  { name: "Coursera", url: "https://www.coursera.org", description: "国际慕课平台,部分课程可免费旁听,证书需付费。", category: "视频课程", icon: "🌐", free: false },
+  { name: "GitHub", url: "https://github.com", description: "全球最大开源社区,找项目、读源码、交作业必备。", category: "编程开发", icon: "🐙", free: true },
+  { name: "力扣 LeetCode", url: "https://leetcode.cn", description: "算法刷题与面试准备,核心题库免费。", category: "编程开发", icon: "🧩", free: true },
+  { name: "MDN Web Docs", url: "https://developer.mozilla.org", description: "Web 前端技术权威文档,HTML/CSS/JavaScript 查询首选。", category: "编程开发", icon: "📖", free: true },
+  { name: "freeCodeCamp", url: "https://www.freecodecamp.org", description: "免费编程课程与项目实战认证。", category: "编程开发", icon: "🔥", free: true },
+  { name: "The Odin Project", url: "https://www.theodinproject.com", description: "开源全栈 Web 开发课程,项目驱动学习。", category: "编程开发", icon: "⚒️", free: true },
+  { name: "Kaggle", url: "https://www.kaggle.com", description: "数据科学竞赛、公开数据集与免费微课程。", category: "编程开发", icon: "📊", free: true },
+  { name: "动手学深度学习", url: "https://zh.d2l.ai", description: "李沐开源深度学习教材,配视频讲解与可运行代码。", category: "编程开发", icon: "🤖", free: true },
+  { name: "Google 学术", url: "https://scholar.google.com", description: "论文检索与引用追踪,科研工作入口。", category: "学术科研", icon: "🔍", free: true },
+  { name: "arXiv", url: "https://arxiv.org", description: "物理、数学、计算机科学预印本论文库,跟踪最新研究。", category: "学术科研", icon: "📄", free: true },
+  { name: "Connected Papers", url: "https://www.connectedpapers.com", description: "论文关联图谱工具,快速理清研究领域脉络。", category: "学术科研", icon: "🕸️", free: true },
+  { name: "Zotero", url: "https://www.zotero.org", description: "免费开源文献管理工具,支持浏览器抓取与引用导出。", category: "学术科研", icon: "🗂️", free: true },
+  { name: "Overleaf", url: "https://www.overleaf.com", description: "在线 LaTeX 协作编辑器,写论文、报告与幻灯片常用。", category: "学术科研", icon: "✍️", free: true },
+  { name: "中国知网", url: "https://www.cnki.net", description: "中文学术文献数据库,校园网内可免费访问。", category: "学术科研", icon: "📰", free: false },
+  { name: "Notion", url: "https://www.notion.so", description: "一体化笔记与知识管理工具,适合整理课程笔记。", category: "效率工具", icon: "📝", free: true },
+  { name: "Obsidian", url: "https://obsidian.md", description: "本地优先的双链笔记软件,插件生态丰富。", category: "效率工具", icon: "💎", free: true },
+  { name: "Anki", url: "https://apps.ankiweb.net", description: "间隔重复记忆卡片,背单词、记公式利器。", category: "效率工具", icon: "🃏", free: true },
+  { name: "Excalidraw", url: "https://excalidraw.com", description: "手绘风格在线白板,画示意图、做展示都方便。", category: "效率工具", icon: "🎨", free: true }
+];
+
+const CATEGORIES = ["全部", "课程资料", "视频课程", "编程开发", "学术科研", "校内平台", "效率工具"];
+const CAT_COLORS = {
+  "课程资料": "var(--c-kecheng)",
+  "视频课程": "var(--c-shipin)",
+  "编程开发": "var(--c-biancheng)",
+  "学术科研": "var(--c-xueshu)",
+  "校内平台": "var(--c-xiaonei)",
+  "效率工具": "var(--c-xiaolv)"
+};
+
+let activeCategory = "全部";
+const grid = document.getElementById("grid");
+const empty = document.getElementById("empty");
+const q = document.getElementById("q");
+const freeOnly = document.getElementById("freeOnly");
+const chips = document.getElementById("chips");
+
+document.getElementById("total").textContent = RESOURCES.length;
+document.getElementById("freeCount").textContent = RESOURCES.filter((r) => r.free).length;
+
+for (const cat of CATEGORIES) {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "chip" + (cat === activeCategory ? " active" : "");
+  btn.textContent = cat;
+  btn.addEventListener("click", () => {
+    activeCategory = cat;
+    for (const c of chips.querySelectorAll(".chip")) c.classList.toggle("active", c.textContent === cat);
+    render();
+  });
+  chips.insertBefore(btn, chips.querySelector(".free-toggle"));
+}
+
+function render() {
+  const keyword = q.value.trim().toLowerCase();
+  const list = RESOURCES.filter((r) => {
+    if (activeCategory !== "全部" && r.category !== activeCategory) return false;
+    if (freeOnly.checked && !r.free) return false;
+    if (keyword && !(r.name.toLowerCase().includes(keyword) || r.description.toLowerCase().includes(keyword))) return false;
+    return true;
+  });
+  grid.innerHTML = "";
+  list.forEach((r, i) => {
+    const a = document.createElement("a");
+    a.className = "card";
+    a.href = r.url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.style.setProperty("--cat-color", CAT_COLORS[r.category] || "var(--primary)");
+    a.style.animationDelay = Math.min(i * 35, 400) + "ms";
+    a.innerHTML =
+      '<div class="card-head"><span class="card-icon">' + r.icon + '</span>' +
+      '<span class="card-name"></span><span class="card-jump">↗</span></div>' +
+      '<p class="card-desc"></p>' +
+      '<div class="card-foot"><span class="badge cat">' + r.category + "</span>" +
+      (r.free ? '<span class="badge free">免费</span>' : '<span class="badge paid">付费/部分免费</span>') +
+      "</div>";
+    a.querySelector(".card-name").textContent = r.name;
+    a.querySelector(".card-desc").textContent = r.description;
+    grid.appendChild(a);
+  });
+  empty.hidden = list.length > 0;
+}
+
+q.addEventListener("input", render);
+freeOnly.addEventListener("change", render);
+render();
+</script>
+</body>
+</html>
